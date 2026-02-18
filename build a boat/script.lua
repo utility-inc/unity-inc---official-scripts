@@ -277,7 +277,7 @@ local Themes = {
 
 GUI:Tab("Main", function()
     GUI:Section("Game", function()
-        GUI:Button("Win", function()
+        GUI:Button("Win (can be buggy) eg require multi clicks to work", function()
             winOnce()
         end)
         

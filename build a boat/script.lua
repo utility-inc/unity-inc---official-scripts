@@ -28,7 +28,7 @@ UserInputService.InputBegan:Connect(function(input, gameProcessed)
     end
 end)
 
--- Fly Variables
+
 local flying = false
 local flySpeed = 50
 local bodyGyro, bodyVelocity
@@ -37,30 +37,28 @@ local directions = {
     Forward = false, Backward = false, Left = false, Right = false, Up = false, Down = false
 }
 
--- NoClip Variables
+
 local noclip = false
 local noclipConnection
 
--- WalkSpeed Variables
+
 local currentWalkSpeed = 16
 
--- Infinite Jump Variables
+
 local canInfJump = false
 local infJumpConnection
 
--- Auto Win Variables
+
 local autoWin = false
 local autoWinConnection
 
--- Nametag Variables
+
 local nametagEnabled = false
 local nametagRadius = 2750
 local nametagFolder = Instance.new("Folder")
 nametagFolder.Name = "Nametags"
 nametagFolder.Parent = workspace
 local playerNametags = {}
-
--- Fly Functions
 local function getDirectionVector()
     local cam = workspace.CurrentCamera
     local moveVector = Vector3.new()
@@ -100,7 +98,6 @@ local function stopFly()
     for k in pairs(directions) do directions[k] = false end
 end
 
--- Input handlers for fly
 UserInputService.InputBegan:Connect(function(input, gameProcessed)
     if gameProcessed or not flying then return end
     local key = input.KeyCode
@@ -123,7 +120,7 @@ UserInputService.InputEnded:Connect(function(input)
     if key == Enum.KeyCode.LeftControl then directions.Down = false end
 end)
 
--- WalkSpeed Loop
+
 task.spawn(function()
     while true do
         task.wait(0.01)
@@ -135,7 +132,7 @@ task.spawn(function()
     end
 end)
 
--- Infinite Jump
+
 UserInputService.JumpRequest:Connect(function()
     if canInfJump then
         local char = LocalPlayer.Character
@@ -148,7 +145,7 @@ UserInputService.JumpRequest:Connect(function()
     end
 end)
 
--- Win Functions
+
 local function touchCheckpoint(part)
     if part and part:IsA("BasePart") then
         local char = LocalPlayer.Character
@@ -192,7 +189,7 @@ local function runAutoWin()
     end
 end
 
--- Nametag Functions
+
 local function createNametag(player)
     if not player.Character or not player.Character:FindFirstChild("HumanoidRootPart") then return nil end
     local billboard = Instance.new("BillboardGui")
@@ -255,7 +252,7 @@ local function clearNametags()
     playerNametags = {}
 end
 
--- Nametag update loop
+
 RunService.RenderStepped:Connect(updateNametags)
 
 Players.PlayerRemoving:Connect(function(player)
@@ -265,7 +262,6 @@ Players.PlayerRemoving:Connect(function(player)
     end
 end)
 
--- UI
 local Themes = {
     Default = {
         Background = Color3.fromRGB(25, 25, 35),
@@ -278,7 +274,7 @@ local Themes = {
     },
 }
 
--- // MAIN TAB
+
 GUI:Tab("Main", function()
     GUI:Section("Game", function()
         GUI:Button("Win", function()
@@ -307,7 +303,7 @@ GUI:Tab("Main", function()
     end)
 end)
 
--- // MISC TAB
+
 GUI:Tab("Misc", function()
     GUI:Section("Movement", function()
         GUI:Button("Toggle Fly: OFF", function(btn)
@@ -420,7 +416,7 @@ GUI:Tab("Visual", function()
             nametagEnabled = not nametagEnabled
             if nametagEnabled then
                 btn.Text = "Toggle Nametags: ON"
-                -- Create nametags for existing players
+             
                 for _, player in ipairs(Players:GetPlayers()) do
                     if player ~= LocalPlayer and player.Character then
                         if playerNametags[player] then playerNametags[player]:Destroy() end
@@ -444,11 +440,11 @@ GUI:Tab("Visual", function()
     end)
 end)
 
--- // SETTINGS TAB
+
 GUI:Tab("Settings", function()
     GUI:Section("UI Configuration", function()
         GUI:Button("Unload Script", function()
-            -- Cleanup
+           
             stopFly()
             if noclipConnection then noclipConnection:Disconnect() end
             autoWin = false

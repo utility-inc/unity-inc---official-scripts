@@ -129,19 +129,6 @@ GUI:Tab("Settings", function()
     end)
     
     GUI:Section("UI Configuration", function()
-        GUI:CreateToggle("GUI Keybind", {
-            keybind = GUIKeybind,
-            save = true,
-        })
-        
-        local function loadKeybind()
-            local savedKey = GUI:Load("GUIKeybind")
-            if savedKey then
-                GUIKeybind = Enum.KeyCode[savedKey]
-            end
-        end
-        loadKeybind()
-        
         GUI:Button("Unload Script", function()
             GUI:Destroy()
             pcall(function()

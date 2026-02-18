@@ -461,7 +461,6 @@ GUI:Tab("Settings", function()
     
     GUI:Section("Credits", function()
         GUI:Label("Scripted by: hive")
-        GUI:Label("Original by: Breif")
         GUI:Label("Library: Hive UI")
     end)
 end)
